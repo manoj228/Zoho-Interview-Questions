@@ -1,0 +1,40 @@
+O/P :
+89 0
+10 3
+12 7
+54 8
+36 12
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	vector<int> a{10, 36, 54,89,12};
+	
+	int n = a.size();
+	vector<pair<int,int>> res;
+	for(int i=0; i<n; i++)
+	{
+		int s = 0 , cur = a[i];
+		if(sqrt(cur) * sqrt(cur) == cur)
+	    s += 5;
+	    if(cur % 4 == 0 && cur % 6 == 0) 
+	    s += 4;
+	    if(cur % 2 == 0) 
+	    s += 3;
+	    
+	    res.push_back({a[i],s});
+	}
+	
+	sort(res.begin(),res.end(),[](const pair<int,int> a,const pair<int,int> b)
+	{
+		if(a.second != b.second) return a.second < b.second;
+		
+		return a.first < b.first;
+	});
+	
+	for(auto v : res)
+	cout << v.first << " " << v.second << endl;
+	
+	return 0;
+}
