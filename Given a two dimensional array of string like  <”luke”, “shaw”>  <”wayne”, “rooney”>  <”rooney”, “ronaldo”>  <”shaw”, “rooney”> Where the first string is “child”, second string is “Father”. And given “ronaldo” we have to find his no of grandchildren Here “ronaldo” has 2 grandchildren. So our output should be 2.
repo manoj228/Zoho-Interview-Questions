@@ -1,0 +1,50 @@
+I/p and O/p :
+<”luke”, “shaw”>
+ <”wayne”, “rooney”>
+ <”rooney”, “ronaldo”>
+ <”shaw”, “rooney”>
+Where the first string is “child”, second string is “Father”. And given “ronaldo” we hav
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int count(vector<pair<string,string>> a,string child,int n)
+{
+	int c = 0;
+	for(int i=0; i<n; i++)
+	{
+		if(a[i].second == child) c++;
+	}
+	
+	return c;
+}
+
+int main() {
+	
+	vector<pair<string,string>> a{{"luke", "shaw"},
+	                              {"wayne", "rooney"}, 
+	                              {"rooney", "ronaldo"},
+	                              {"shaw", "rooney"}};
+	                              
+	int n = a.size();
+	
+	string inputFather ;
+	cin >> inputFather;
+	
+	string child = "";
+	for(int i=0; i<n; i++)
+	{
+		if(a[i].second == inputFather)
+		child = a[i].first;
+	}
+	
+	
+	if(child == ""){
+	cout << "Not Found";
+    } 
+    else{
+    	cout << inputFather<< " has "<<count(a,child,n) << " grandchildren";
+    }
+	 
+	return 0;
+}
