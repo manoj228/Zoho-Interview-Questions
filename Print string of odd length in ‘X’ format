@@ -1,0 +1,50 @@
+Input: 12345
+Output:
+1       5
+  2   4
+    3
+  2   4
+1       5 
+
+Input: geeksforgeeks
+Output:
+g                         s
+  e                     k
+    e                 e
+      k             e
+        s         g
+          f      r
+             o
+          f     r
+        s         g
+      k             e
+    e                 e
+  e                      k
+g                          s 
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	string s;
+	cin >> s;
+	
+	int k = s.length()-1;
+	for(int i=0; i<s.size(); i++)
+	{
+		for(int j=0; j<s.size(); j++)
+		{
+			if(i == j && (i+j) != s.size()-1) 
+			cout << s[i] ;
+			else if((i+j) == s.size()-1) 
+			cout << s[k--] ;
+		    
+		    if((i+j) != s.size()-1)
+			cout << " ";
+		}
+		cout << endl;
+	}
+	
+	return 0;
+}
