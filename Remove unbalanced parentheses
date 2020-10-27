@@ -1,0 +1,44 @@
+ Input : ((abc)((de))
+ Output : ((abc)(de))
+ Input : (((ab)
+ Output : (ab) 
+
+// remove invalid paranthesis
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	string str;
+	cin >> str ;
+	
+	int n = str.size(), end = 0;
+	int i = 0 , j = n - 1;
+	
+	for(i=0;str[i];i++)
+	{
+		if(str[i]=='(')
+		{ 
+			for(end+=1;str[end]!=')'&&str[end]!='\0';end++);
+			if(str[end]=='\0')           //remove unbalanced '(' at any position
+			{
+				for(j=i;str[j]=str[j+1];j++);    
+				i--;
+			}
+			if(end<i)
+			{
+				for(j=end;str[j]=str[j+1];j++);    //remove unbalanced ')' at middle position 
+				i-=1;
+			}
+		}
+		if(str[i]==')')                                     //remove unbalanced ')' at last positions
+		        if(i>end || i==0)
+			{
+				for(j=i;str[j]=str[j+1];j++);
+				i--;}
+
+	}
+   cout << str << " ";
+	
+		
+	return 0;
+}
