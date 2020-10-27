@@ -1,0 +1,96 @@
+O/P:
+w e L C O
+M E T O Z
+O H O C O
+R P O R A
+T I O n
+And print the start and ending index as
+Start index : <1,2>
+End index: <3, 2>
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool checkForLeftToRight(vector<vector<char>> res,int x,int y,int r,int c,string search,int idx)
+{
+    for(int i=y; idx < search.size(); i++,idx++)
+    {
+    	if(res[x][i] != search[idx])
+    	return false;
+
+    }
+    
+    return true;
+}
+
+bool checkForTopToBottom(vector<vector<char>> res,int x,int y,int r,int c,string search,int idx)
+{
+	for(int i=x; idx < search.size(); i++,idx++)
+    {
+    	if(res[i][y] != search[idx])
+    	return false;
+    }
+    return true;
+    
+}
+
+int main() {
+	string s;
+	cin >> s;
+    
+    string search;
+    cin >> search;
+    
+	int k = 5, l = 0;
+	vector<vector<char>> res;
+	
+	for(int i=0; i<5; i++)
+	{
+		vector<char> t;
+		for(int j=0; j<5; j++)
+		{
+			t.push_back(s[l++]);
+		}
+		res.push_back(t);
+	}
+	
+	for(int i=0; i<5; i++)
+	{
+		for(int j=0; j<5; j++)
+		cout << res[i][j] << " ";
+		cout << endl;
+	}
+	
+	cout << endl;
+	
+	int f = 0;
+	pair<int,int> st,e;
+	for(int i=0; i<res.size(); i++)
+	{
+		for(int j=0; j<res[i].size(); j++)
+		{
+			if(res[i][j] == search[0])
+			{
+				if(checkForLeftToRight(res,i,j,res.size(),res[i].size(),search,0))
+				{
+					st.first = i , st.second = j;
+					e.first = i , e.second = j + (search.size()-1);
+					f = 1 ; 
+					break;
+				}
+				 
+				else if(checkForTopToBottom(res,i,j,res.size(),res[i].size(),search,0))
+				{
+				  	st.first = i , st.second = j;
+				  	e.first = i + (search.size()-1) , e.second = j;
+				  	f = 1; 
+				  	break;
+				}
+			}
+		}if(f) break;
+	}
+	
+	cout << st.first << " " << st.second << " " << e.first << " " << e.second << endl;
+	
+	return 0;
+}
