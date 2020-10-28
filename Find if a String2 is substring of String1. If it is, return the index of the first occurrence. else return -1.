@@ -1,0 +1,46 @@
+Eg 1:Input:
+ String 1: test123string
+ String 2: 123
+ Output: 4
+Eg 2: Input:
+ String 1: testing12
+ String 2: 1234
+ Output: -1
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	string s1 , s2;
+    cin >> s1 >> s2;
+    
+    int fn = s1.size() , sn = s2.size();
+    
+    int k = 0 , f = 0 , startIndex = -1;
+    for(int i=0; i<fn; i++)
+    {
+    	if(s1[i] == s2[0])
+    	{
+    		startIndex = i;
+    		while(s1[i] == s2[k] && k < sn)
+    		{
+    			i++,k++;
+    		}
+    		
+    		if(k != sn)
+    		{
+    			f = 1;
+    			break;
+    		}
+    		else break;
+    	}
+    }
+	
+	if(f) cout<< "-1";
+	else cout << startIndex ;
+	
+	return 0;
+}
