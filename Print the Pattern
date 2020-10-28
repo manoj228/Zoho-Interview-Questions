@@ -1,0 +1,77 @@
+Input:
+N= 3, M=3
+Output:
+X X X
+X 0 X
+X X X
+Input:
+N=4 M=5
+Output:
+X X X X
+X 0 0 X
+X 0 0 X
+X 0 0 X
+X X X X
+Input:
+N=6 M=7
+X X X X X X
+X 0 0 0 0 X
+X 0 X X 0 X
+X 0 X X 0 X
+X 0 X X 0 X
+X 0 0 0 0 X
+X X X X X X
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int row, col;
+	cin >> row >> col;
+	
+	int k = 0 , l = 0 , r = row , c = col;
+	vector<vector<char>> res(row,vector<char>(col,'0'));
+	int ct = 1;
+	while(k < row && l < col)
+	{
+		if(ct & 1)
+		{
+		//first row
+		for(int i=l; i<col; i++) res[k][i] = 'X';
+		k++;
+		
+		//last col
+		for(int i=k; i<row; i++) res[i][col-1] = 'X';
+		col--;
+		
+		//last row;
+		if(k < row)
+		{
+			for(int i=col-1; i>=l; i--) res[row-1][i] = 'X';
+			row--;
+		}
+		
+		//first col
+		if(l < col)
+		{
+			for(int i=row-1; i>=k; i--) res[i][l] = 'X' ;
+			l++;
+		}
+		}
+		else{
+			k++ , l++, row--, col--;
+		}
+		ct++;
+	}
+	
+	for(int i=0; i<r; i++)
+	{
+		for(int j=0; j<c; j++) 
+		cout << res[i][j] << " ";
+		cout << endl;
+	}
+	
+	return 0;
+}
