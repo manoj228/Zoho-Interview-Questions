@@ -1,0 +1,44 @@
+Input: 234
+Output: Two hundred and Thirty Four
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string ones[] = {"","one ","two ","three ","four ","five ","six ","seven ","eight ",
+                 "nine ","ten ","eleven ","twelve ","thirteen ", "fourteen ",
+                 "fifteen ","sixteen ", "seventeen ", "eighteen ","nineteen "};
+	              
+string tens[] = {"","","twenty ","thirty ","forty ","fifty ","sixty ","seventy ",
+                 "eighty ", "ninety "};	             
+
+string convert(int n, string s)
+{
+	string str = "";
+	
+	if(n > 19)
+	str += tens[n/10] + ones[n%10];
+	else
+	str += ones[n];
+	
+	if(n) str += s;
+	
+	return str;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    
+    string res ;
+    res += convert((n/100000)%100000, "Lakhs ");
+    res += convert((n/1000)%1000, "Thousand ");
+    res += convert((n/100)%100 ,"Hundred ");
+    
+    if(n % 100 && n > 100) res += "and ";
+    
+    res += convert((n%100), "");
+    
+    cout << res << " ";
+	
+	return 0;
+}
