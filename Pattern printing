@@ -1,0 +1,44 @@
+Ip: n=5
+Op:
+1
+1 1
+2 1
+1 2 1 1
+1 1 1 2 2 1
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    string str = "", prev = "1";
+    int c ;
+    
+    for(int k=1; k<=n; k++)
+    {
+    	if(k == 1) cout << prev ;
+    	else{
+    		c = 0;
+    		str = "";
+    		for(int i=0; i<prev.size(); i++)
+    		{
+    			c++;
+    			while(prev[i] == prev[i+1])
+    				i++ , c++;
+    			
+    			cout << c << " " << prev[i] << " ";
+    			str += to_string(c) + prev[i];
+    			c = 0;
+    		}
+    		
+    		prev = str;
+    		
+    	}
+    	cout << endl;
+    	
+    }
+	
+	return 0;
+}
