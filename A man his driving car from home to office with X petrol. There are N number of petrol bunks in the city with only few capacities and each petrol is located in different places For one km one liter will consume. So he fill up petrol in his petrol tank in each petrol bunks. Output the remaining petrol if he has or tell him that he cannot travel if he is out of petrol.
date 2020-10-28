@@ -1,0 +1,36 @@
+Input:
+Petrol in car: 2 Liters
+Petrol bunks: A B C
+Distance from petrol each petrol bunks: 1, 5, 3
+Capacities of each petrol bunk: 6, 4, 2
+Output:
+Remaining petrol in car is 5 liters
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    
+    int petrolRem ;
+    cin >> petrolRem;
+    
+    vector<int> distance { 1, 5, 3};
+    vector<int> capacity { 6, 4, 2};
+    
+    for(int i=0; i<distance.size(); i++)
+    {
+    	if(petrolRem > 0)
+    	{
+    		petrolRem -= distance[i];
+    		petrolRem += capacity[i];
+    	}
+    	else{
+    		cout << "Out of petrol";
+    		break;
+    	}
+    }
+    
+    cout << "Remaining petrol in Car" << petrolRem ;
+	
+	return 0;
+}
