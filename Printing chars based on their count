@@ -1,0 +1,19 @@
+Eg 1: Input: a1b10
+ Output: abbbbbbbbbb
+Eg: 2: Input: b3c6d15
+ Output: bbbccccccddddddddddddddd
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    
+    int num ;
+    char c;
+    while(cin >> c >> num)
+    {
+    	while(num--) cout << c ;
+    }
+		
+	return 0;
+}
