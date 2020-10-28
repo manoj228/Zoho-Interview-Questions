@@ -1,0 +1,62 @@
+Input:
+Array: 3, 9, 7, 4, 6, 8
+X: 3
+Output:
+[4 6 8] [7 6 8] [9 4 8]
+[3 4 8] [4 8] [9 7 8]
+[3 7 8] [7 8] [3 9 6]
+[9 6] [3 6] [3 9]
+No of groups: 12
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<vector<int>> dp;
+int x , c = 0;	
+vector<int> output(100);
+vector<int> arr{3, 9, 7, 4, 6, 8};
+
+void print(vector<int> res,int pos,int sum)
+{
+	if(sum == 0 && pos > 1 && pos <= x)
+	{
+		for(int i = pos-1; i>=0; i--)
+		cout << res[i] << " ";
+		cout << endl;
+		c++;
+	}
+}
+
+int Backtrack(vector<int>& output, int pos, int i, int sumModuloX)
+	{
+		if (i == 0) {
+		    print(output, pos, sumModuloX);
+			return 0;
+		}
+		int& cache = dp[i][sumModuloX];
+		if (cache != INT_MIN) {
+			if (pos >= x || cache == 0 || (pos == 0 && cache == 1)) {
+				print(output, pos, sumModuloX);
+				return cache;
+			}
+		}
+		 output[pos] = arr[i - 1];
+
+		int a = Backtrack(output, pos + 1, i - 1, (x + sumModuloX - (arr[i - 1] % x)) % x) + 1;
+
+		int b = Backtrack(output, pos, i - 1, sumModuloX);
+		cache = max(a, b);
+		return cache;
+	}
+
+int main() {
+	
+	int n = arr.size();
+	cin >> x;
+	dp.resize(n+1, vector<int>(x,INT_MIN));
+	
+	Backtrack(output,0,n,0);
+    cout << "No of Groups: " << c;
+	
+	return 0;
+}
