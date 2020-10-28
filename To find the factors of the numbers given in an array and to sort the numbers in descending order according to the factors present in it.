@@ -1,0 +1,58 @@
+Given array : 8, 2, 3, 12, 16
+Output:
+12, 16, 8, 2, 3
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int fact(int n)
+{
+	int c = 0;
+	for(int i=1; i * i <= n; i++)
+	{
+		if(n% i== 0)
+		{
+			c++;
+			if(n/i != i) c++;
+		}
+	}
+	
+	return c;
+}
+
+//improved bubble sort
+void bubbleSort(vector<pair<int,int>>& facArray)
+{
+	int f , len = facArray.size();
+	for(int i=0; i<len-1; i++)
+	{
+		f = 0;
+		for(int j=0; j<len-1-i; j++)
+		{
+			f = 1 ;
+			if(facArray[j].second < facArray[j+1].second)
+			swap(facArray[j], facArray[j+1]);
+		}
+		if(!f) break;
+	}
+}
+
+int main() {
+    vector<int> inputArray{ 8, 2, 3, 12, 16};
+    
+    int len = inputArray.size();
+	vector<pair<int,int>> facArray;
+	for(int i=0; i<len; i++)
+	{
+		int checkforFactor = fact(inputArray[i]);
+		
+		facArray.push_back({inputArray[i], checkforFactor});
+	}
+	
+	bubbleSort(facArray);
+	
+	for(int i=0; i<len; i++)
+	cout << facArray[i].first << " ";
+	
+	return 0;
+}
