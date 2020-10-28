@@ -1,0 +1,21 @@
+Input:
+2
+15
+Output:
+3,5,7,9,11,13
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int startRange , endRange;
+	cin >> startRange >> endRange;
+	
+	for(int i=startRange ; i<endRange; i++)
+	if( i & 1)
+	cout << i << " ";
+	
+	return 0;
+}
