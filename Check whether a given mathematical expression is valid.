@@ -1,0 +1,57 @@
+ Input : (a+b)(a*b)
+ Output : Valid
+ Input : (ab)(ab+)
+ Output : Invalid
+ Input : ((a+b)
+ Output : Invalid 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isOp(char c)
+{
+	return (c == '+' || c == '-' || c == '*' || c == '/');
+}
+
+bool isAlpha(char c)
+{
+	return ((c >= 65 && c <= 90) || (c >= 97 && c <= 122));
+}
+
+int main() {
+	string s;
+	cin >> s;
+	
+	stack<char> st;
+	int f = 0;
+	for(int i=0; i<s.size(); i++)
+	{
+		if(s[i] == '(') st.push(s[i]);
+		else if(s[i] == ')')
+		{
+			if(st.empty()){
+			f = 1;
+			break;
+			}
+			else
+				st.pop();
+		}
+		else if(isOp(s[i]))
+		{
+			if(!isAlpha(s[i-1]) || !isAlpha(s[i+1])) 
+			{
+				f = 1;
+				break;
+			}
+		}
+	}
+	
+	if(!st.empty())
+	f = 1;
+	
+	if(f) cout << "Invalid";
+	else cout << "Valid";
+
+		
+	return 0;
+}
