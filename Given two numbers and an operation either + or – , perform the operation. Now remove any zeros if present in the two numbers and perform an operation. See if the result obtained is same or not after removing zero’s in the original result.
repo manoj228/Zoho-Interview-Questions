@@ -1,0 +1,48 @@
+Input: a = 101, b = 102
+Output: YES
+101 + 102 = 203.
+After removing all zeroes from a, b and c, a = 11, b = 12 and c = 23
+Now check if a + b = c i.e. 11 + 12 = 23 . So print Yes.
+
+Input: a = 105, b = 108
+Output: NO
+After removing all zeroes a + b!= c, therefore the output is NO.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int removeZeros(int n)
+{
+	int d = 1, res = 0;
+	
+	while(n)
+	{
+		if((n%10) != 0)
+		{
+			res += (n % 10) * d;
+			d *= 10;
+		}
+		
+		n /= 10;
+	}
+	
+	return res;
+	
+}
+
+bool checkAfterRemovingZeros(int a, int b)
+{
+	return removeZeros(a) + removeZeros(b) == removeZeros(a+b);
+}
+
+int main() {
+	
+	int a , b;
+	cin >> a >> b;
+	
+	if(checkAfterRemovingZeros(a,b))
+	cout << "Yes";
+	else cout << "No";
+	
+	return 0;
+}
