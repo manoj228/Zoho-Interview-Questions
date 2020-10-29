@@ -1,0 +1,94 @@
+I/P : "10 + 2 * 6"
+O/P; 22
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int calculate(int a,int b,char c)
+{
+	switch(c)
+	{
+		case '+': return a+b;
+		case '-': return a-b;
+		case '/': return a/b;
+		case '*': return a*b;
+	}
+
+	return 0;
+}
+
+int precedence(char c)
+{
+	if(c == '+' || c == '-') return 1;
+	else if(c == '/' || c == '*') return 2;
+	return 0;
+}
+
+int evaluate(string tokens)
+{
+	stack<int> values;
+	stack<char> op;
+	
+	for(int i=0; i<tokens.length(); i++)
+	{
+		if(tokens[i] == ' ' ) continue;
+		
+		else if(tokens[i] == '(') op.push(tokens[i]);
+		
+		else if(isdigit(tokens[i]))
+		{
+			int val = 0;
+			while(isdigit(tokens[i]) && i < tokens.length()) 
+			{
+				val = val * 10 + tokens[i++] - '0';
+			}
+			i--;
+			
+			values.push(val);
+		}
+		
+		else if(tokens[i] == ')')
+		{
+			while(!op.empty() && op.top() != '(')
+			{
+				int a = values.top(); values.pop();
+				int b = values.top(); values.pop();
+				char c = op.top(); op.pop();
+				
+				values.push(calculate(a,b,c));
+			}
+			
+			if(!op.empty()) op.pop();
+		}
+		else{
+			while(!op.empty() && precedence(tokens[i]) <= precedence(op.top()))
+			{
+				int a = values.top(); values.pop();
+				int b = values.top(); values.pop();
+				char c = op.top(); op.pop();
+				
+				values.push(calculate(a,b,c));
+			}
+			
+			op.push(tokens[i]);
+		}
+	}
+	
+	while(!op.empty() )
+	{
+		int a = values.top(); values.pop();
+		int b = values.top(); values.pop();
+		char c = op.top(); op.pop();
+				
+		values.push(calculate(a,b,c));
+	}
+	
+	return values.top();
+}
+
+int main() {
+    
+    cout << evaluate("10 + 2 * 6") ;
+	
+	return 0;
+}
