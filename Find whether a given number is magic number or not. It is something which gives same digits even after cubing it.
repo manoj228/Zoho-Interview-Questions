@@ -1,0 +1,36 @@
+I/P : 153 
+o/p : It is a magic number
+
+I/p : 100
+o/p: It is not a magic number
+    
+    
+#include <bits/stdc++.h>
+using namespace std;
+
+bool check(int n)
+{
+	int res = 0 , original = n;
+	
+	while(n)
+	{
+		int rem = n % 10;
+		res += (rem * rem * rem);
+		n /= 10;
+	}
+	
+	return (original == res);
+}
+
+int main() {
+	int n ;
+	cin >> n;
+	
+	if(check(n))
+	cout << "It is a magic number";
+	else
+	cout << "It is not a magic number";
+	
+	return 0;
+
+}
