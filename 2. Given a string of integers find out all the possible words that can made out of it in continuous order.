@@ -1,0 +1,38 @@
+ I/P:
+ Eg: 11112
+ o/p :
+AAAAB
+AAAL
+AAKB
+AKAB
+AKL
+KAAB
+KAL
+KKB
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void call(string s,string word)
+{
+	if(s.empty()) cout << word << endl;
+	else {
+		int n = stoi(s.substr(0,1));
+		call(s.substr(1), word + (char)((n-1)+ 'A'));
+		
+		if(s.length() >= 2 && (n = stoi(s.substr(0,2))) <= 26)
+		call(s.substr(2), word + (char)((n-1)+ 'A'));
+	}
+}
+
+int main() {
+	// your code goes here
+	string s;
+	cin >> s;
+	
+	call(s , "");
+	
+	return 0;
+
+}
