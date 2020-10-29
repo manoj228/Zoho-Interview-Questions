@@ -1,0 +1,100 @@
+For 3*3 matrix
+Input
+1 2 3
+4 5 6
+7 8 9
+Output:
+4 1 2
+7 5 3
+8 9 6
+For 4*4 matrix
+Input:
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+Output:
+5 1 2 3
+9 10 6 4
+13 11 7 8
+14 15 16 12
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int n;
+	cin >> n ;
+	
+	vector<vector<int>> a(n,vector<int>(n));
+	
+	for(int i=0; i<n; i++)
+	{
+		for(int j=0; j<n; j++)
+		cin >> a[i][j];
+	}
+	
+	int k = 0 , l = 0 , row = n , col = n;
+	while(k < row && l < col)
+	{
+		if(k + 1 == row || l + 1 == col) break;
+		
+		int prev = a[k+1][l];
+		
+		//first row
+		for(int i=l; i<col; i++)
+		{
+			int cur = a[k][i];
+			a[k][i] = prev;
+			prev = cur;
+		}
+		k++;
+		
+		//last col
+		for(int i=k; i<row; i++)
+		{
+			int cur = a[i][col-1];
+			a[i][col-1] = prev;
+			prev = cur;
+		}
+		col--;
+		
+		//last row
+		if(k < row)
+		{
+			for(int i=col-1; i>=l; i--)
+			{
+				int cur = a[row-1][i];
+				a[row-1][i] = prev;
+				prev = cur;
+			}
+			row--;
+		}
+		
+		
+		//first col
+		if(l < col)
+		{
+			for(int i=row-1; i>=k; i--)
+			{
+				int cur = a[i][l];
+				a[i][l] = prev;
+				prev = cur;
+			}
+			l++;
+		}
+		
+	}
+	
+	for(int i=0; i<n; i++)
+	{
+		for(int j=0; j<n; j++)
+		cout << a[i][j] << " ";
+		cout << endl;
+	}
+	
+	
+	return 0;
+}
