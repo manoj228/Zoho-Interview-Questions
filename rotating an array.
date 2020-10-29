@@ -1,0 +1,125 @@
+I/p : {1,2,3,4,5,6,7}
+O/P :
+Printing Left Rotation without swapping :
+3 4 5 6 7 1 2 
+Reversal Algorithm output for left Rotation :
+3 4 5 6 7 1 2 
+GCD technique output for left Rotation :
+3 4 5 6 7 1 2 
+
+Printing Right Rotation without swapping :
+6 7 1 2 3 4 5 
+Reversal Algorithm output for Right Rotation :
+6 7 1 2 3 4 5 
+
+Compilation error #stdin compilation error #stdout 0s 4164KB
+prog.cpp: In function ‘void leftRotate(std::vector<int>, int, int)’:
+prog.cpp:44:11: error: ‘arr’ was not declared in this scope
+   int t = arr[i];
+           ^~~
+
+Success #stdin #stdout 0s 4164KB
+Printing Left Rotation without swapping :
+3 4 5 6 7 1 2 
+Reversal Algorithm output for left Rotation :
+3 4 5 6 7 1 2 
+Printing Right Rotation without swapping :
+6 7 1 2 3 4 5 
+Reversal Algorithm output for Right Rotation :
+6 7 1 2 3 4 5 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int gCD(int a,int b)
+{
+	if(b == 0) return a;
+	else
+	return gCD(b, a%b);
+}
+
+void reversal(vector<int> &a,int l,int r)
+{
+	while(l <= r)
+	{
+		swap(a[l++], a[r--]);
+	}
+}
+
+void leftRotate(vector<int> a,int n,int d)
+{
+	// without swapping
+	cout << "Printing Left Rotation without swapping :"<< endl;
+	d = d % n;
+	for(int i=0; i<n; i++)
+	cout << a[(d+i)%n] << " ";
+	cout << endl;
+	
+	// with swapping
+	// 1) reversal algorithm 2) gcd technique
+	
+	//reversal
+	reversal(a,0,d-1);
+	reversal(a,d,n-1);
+	reversal(a,0,n-1);
+	cout << "Reversal Algorithm output for left Rotation :" << endl;
+	for(int i=0; i<n; i++) cout << a[i] << " ";
+	cout << endl;
+	
+	//gcd
+	int gcd = gCD(d,n);
+	
+	for(int i=0; i<n; i++)
+	{
+		int t = a[i];
+		int cur = i ;
+		
+		while(1)
+		{
+			int k = cur + d;
+			if(k >= n) k -= n;
+			
+			if(k == i) break;
+			a[cur] = a[k];
+			cur = k;
+		}
+		
+		a[cur] = t;
+	}
+	
+	cout << "GCD technique output for left Rotation :" << endl;
+	for(int i=0; i<n; i++) cout << a[i] << " ";
+	cout << endl;
+	
+}
+
+void rightRotate(vector<int> a,int n,int d)
+{
+	d %= n;
+	cout << "Printing Right Rotation without swapping :"<< endl;
+	for(int i=0; i<n; i++)
+	cout << a[(n+i - d) %n] << " ";	cout << endl;
+	
+	//reversal
+	reversal(a,0,n-1);
+	reversal(a,d,n-1);
+	reversal(a,0,d-1);
+
+	cout << "Reversal Algorithm output for Right Rotation :" << endl;
+	for(int i=0; i<n; i++) cout << a[i] << " ";
+	cout << endl;
+}
+
+int main() {
+	
+	vector<int> a{1,2,3,4,5,6,7};
+	int n = a.size();
+	int d = 2;
+	
+	leftRotate(a,n,d);
+	cout << endl;
+	rightRotate(a,n,d);
+
+	return 0;
+
+}
