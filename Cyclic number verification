@@ -1,0 +1,86 @@
+I/p : 142857
+o/p : Yes , it is a cyclic number
+
+I/p : 100
+o/p : No , it is not a cyclic number
+
+Solution 1 : 
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	string s;
+	cin >> s;
+	
+	//take string length
+	int n = s.length();
+	
+	// take first string as original string length + 1 
+	string str = to_string(n+1) , st = "";
+	
+	//take second string as append '9' upto original string length
+	for(int i=0; i<n; i++) st += '9';
+	
+	// Cyclic number if multiply first string and original string and it will be equals to second string
+	cout << stoi(str)* stoi(s) << " " << st << endl;
+	
+	return 0;
+}
+
+Solution 2:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isCyclic(int n)
+{
+	// check all digits are same
+	int num = n;
+	int count = 0 , digit = n % 10;
+	bool allSame = true;
+	while(num)
+	{
+		count++;
+		if(num%10 != digit) allSame = false;
+		num /= 10;
+	}
+	
+	if(allSame) return false;
+	
+	// if count is even 
+	// check firsthalf and secondhalf 
+	// if its equal , then it's not cyclic
+	
+	if(count % 2 == 0)
+	{
+		int power = pow(10,count/2);
+		int firstHalf = n % power , secondHalf = n / power;
+		
+		if(firstHalf == secondHalf && isCyclic(firstHalf))
+		return false;
+	}
+	
+	num = n;
+	
+	while(1)
+	{
+		int rem = num % 10 , divi = num / 10;
+		num = pow(10,count-1) * rem + divi;
+		
+		if(num == n) break;
+		
+		if(num % n != 0) return false;
+	}
+	
+	return true;
+	
+}
+
+int main() {
+    int n ;
+	cin >> n;
+	
+	if(isCyclic(n)) cout << "Yes , it is a cyclic number";
+	else cout << "No , it is not a cyclic number";
+	
+	return 0;
+}
