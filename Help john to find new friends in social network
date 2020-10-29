@@ -1,0 +1,40 @@
+Input:
+3
+Mani 3 ram raj guna
+Ram 2 kumar Kishore
+Mughil 3 praveen Naveen Ramesh
+Output:
+Raj guna kumar Kishore praveen Naveen Ramesh
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int n;
+	cin >> n;
+
+	vector<string> f;
+	vector<string> name;
+	for(int i=0; i<n; i++)
+	{
+		string s, fr;
+		int t;
+		cin >> s >> t;
+		name.push_back(s);
+		for(int i=0; i<t; i++){
+		cin >> fr;
+		f.push_back(fr);
+		}
+	}
+	
+	for(int i=0; i<f.size(); i++)
+	{
+		if(find(name.begin(), name.end() , f[i]) == name.end())
+		{
+			cout << f[i] <<  " ";
+		}
+	}
+	
+	return 0;
+}
