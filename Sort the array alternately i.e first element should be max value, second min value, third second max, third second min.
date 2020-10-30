@@ -1,0 +1,42 @@
+ Eg: arr[] = {1,2,3,4,5,6,7} O/P: {7,1,6,2,5,3,4} Note: no extra space and
+time complexity should be less;
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void call(vector<int>& a,int n)
+{
+	int maxIdx = n-1 , minIdx = 0 ;
+	int maxEle = a[n-1] + 1;
+	
+	for(int i=0; i<n; i++)
+	{
+		if(i % 2 == 0)
+		{
+			a[i] += (a[maxIdx] % maxEle) * maxEle;
+			maxIdx--;
+		}
+		else{
+			a[i] += (a[minIdx] % maxEle) * maxEle;
+			minIdx++;	
+		}
+		
+	}
+	
+	for(int i=0; i<n; i++)
+	cout << a[i]/maxEle << " " ;
+	cout << endl;
+
+}
+
+int main() {
+
+vector<int> a{1,2,3,4,5,6,7};
+int n = a.size();
+
+call(a,n);
+
+
+
+	return 0;
+}
