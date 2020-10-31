@@ -40,6 +40,11 @@ int main() {
 	int sx , sy, ex, ey;
 	cin >> sx >> sy >> ex >> ey;
 	
+	if(sx > ex && sy > ey)
+	{
+		swap(sx,ex) , swap(sy,ey);
+	}
+	
 	vector<pair<int,int>> res;
 	int f = 0;
 	while(sx != ex || sy != ey)
@@ -76,14 +81,15 @@ int main() {
 			f = 1;
 			break;
 		}
-		
 	}
-
 	
+    if(!f)
+    {
 	for(int i=0; i<res.size(); i++)
 	{
 		cout << res[i].first << " " << res[i].second << endl;
 	}
+    }
 	
 	
 	
