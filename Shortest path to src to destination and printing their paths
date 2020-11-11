@@ -1,0 +1,96 @@
+#include <bits/stdc++.h>
+#define ROW 9
+#define COL 10
+using namespace std;
+
+bool isValid(int r,int c)
+{
+	return (r >= 0 && r < ROW && c >= 0 && c < COL);
+}
+
+struct Point
+{
+    int x;
+    int y;
+};
+
+int main() {
+	
+int mat[ROW][COL]  = 
+                  {{1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
+                  {1, 0, 1, 0, 1, 1, 1, 0, 1, 1 },
+                  {1, 1, 1, 0, 1, 1, 0, 1, 0, 1 },
+                  {0, 0, 0, 0, 1, 0, 0, 0, 0, 1 },
+                  {1, 1, 1, 0, 1, 1, 1, 0, 1, 0 },
+                  {1, 0, 1, 1, 1, 1, 0, 1, 0, 0 },
+                  {1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                  {0, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
+                  {1, 1, 0, 0, 0, 0, 1, 0, 0, 1 }};
+//Point Source = {0, 0};
+//Destination = {3, 4};
+
+int sx , sy , dx, dy;
+cin >> sx >> sy >> dx >> dy;
+
+Point res[ROW*COL];
+int t = 0;
+// dir : top , bottom, right, left
+int xc[4] = {-1,1,0,0};
+int yc[4] = {0,0,1,-1};
+
+res[t].x = sx , res[t].y = sy;
+t++;
+
+int vis[ROW][COL];
+memset(vis,0,sizeof(vis));
+
+int f = 0  , prex = -1, prey = -1;
+if(mat[dx][dy] != 0)
+{
+while(1)
+{
+	int curx = res[t-1].x , cury = res[t-1].y ;
+	
+	if(prex != -1 && prey != -1)
+	{
+		if(prex == curx && prey == cury) {
+			t--;
+		}
+		else
+			prex = curx , prey = cury;
+	}
+	else
+	prex = curx , prey = cury;
+
+	if(curx == dx && cury == dy) {f = 1; break;}
+	else if(curx > dx && cury > dy) break;
+	
+ 	for(int i=0; i<4; i++)
+	{
+		int nx = curx + xc[i] ;
+		int ny = cury + yc[i] ;
+		
+		if(isValid(nx,ny) && mat[nx][ny] && !vis[nx][ny])
+		{
+			vis[nx][ny] = 1;
+			res[t].x = nx  , res[t].y = ny;
+			t++;
+		}
+
+	}
+}
+}
+
+if(f)
+{
+for(int i=0; i<t; i++)
+{
+	cout << "(" << res[i].x << ","  << res[i].y <<") ";
+}
+}
+else
+cout << "No path found";
+	
+	
+	return 0;
+}
