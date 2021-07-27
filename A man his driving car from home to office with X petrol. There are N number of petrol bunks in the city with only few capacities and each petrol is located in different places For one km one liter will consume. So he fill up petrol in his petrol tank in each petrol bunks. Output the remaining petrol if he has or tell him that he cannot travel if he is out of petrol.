@@ -6,8 +6,30 @@ Capacities of each petrol bunk: 6, 4, 2
 Output:
 Remaining petrol in car is 5 liters
 
+// Time complexity : O(n) + O(nlogn) + O(n) = O(nlogn)
+// space complexity : O(n) [for disCap] or O(1) [if already given as pair ]
+
 #include <bits/stdc++.h>
 using namespace std;
+
+int calculate(int rem, vector<pair<int,int>> &disCap)
+{
+	// O(n)
+	for(int i=0; i<disCap.size(); i++)
+	{
+		if(rem >= disCap[i].first)
+		{
+			rem -= disCap[i].first;
+			rem += disCap[i].second;
+		}
+		
+		else{
+			return 0;
+		}
+	}
+	
+	return rem;
+}
 
 int main() {
     
@@ -17,20 +39,22 @@ int main() {
     vector<int> distance { 1, 5, 3};
     vector<int> capacity { 6, 4, 2};
     
+    vector<pair<int,int>> disCap;
+    // insert into vector as pairs 
+    // O(n)
     for(int i=0; i<distance.size(); i++)
-    {
-    	if(petrolRem > 0)
-    	{
-    		petrolRem -= distance[i];
-    		petrolRem += capacity[i];
-    	}
-    	else{
-    		cout << "Out of petrol";
-    		break;
-    	}
-    }
+    	disCap.push_back({distance[i], capacity[i]});
     
-    cout << "Remaining petrol in Car" << petrolRem ;
+    // sort the vector based on low ditance
+    // O(nlogn)
+    sort(begin(disCap), end(disCap), [](const pair<int,int> a, const pair<int,int> b){
+    if(a.first != b.first) return a.first < b.first;
+    
+    return a.second > b.second;
+    });
+	
+	
+	cout << calculate(petrolRem, disCap);
 	
 	return 0;
 }
