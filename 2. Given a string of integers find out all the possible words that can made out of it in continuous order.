@@ -11,18 +11,39 @@ KAL
 KKB
 
 
+//Time complexity : O(n) + O(n) (because traversing through single char and two chars)
+// space complexity : O(1)
+
 #include <bits/stdc++.h>
 using namespace std;
 
-void call(string s,string word)
+void recursiveCall(string s, string word)
 {
+	// string becomes empty
 	if(s.empty()) cout << word << endl;
-	else {
-		int n = stoi(s.substr(0,1));
-		call(s.substr(1), word + (char)((n-1)+ 'A'));
+	
+	// else , call for each substring
+	else{
+		// taking single char
+		int num = stoi(s.substr(0, 1));
 		
-		if(s.length() >= 2 && (n = stoi(s.substr(0,2))) <= 26)
-		call(s.substr(2), word + (char)((n-1)+ 'A'));
+		//O(n)
+		// recursively call for next string
+		// 0 - 'A', 1 - 'B' ...
+		// so only we taking "num - 1"
+		recursiveCall(s.substr(1), word + (char)((num - 1) + 'A'));
+	
+	    // string length is more than 2
+	    if(s.length() >= 2){
+		// taking two characters	
+		num = stoi(s.substr(0,2));
+		
+		// if num is less than or equal to 26, then call for next double chars
+		if(num-1 <= 26)
+		// O(n)
+		recursiveCall(s.substr(2), word + (char)((num - 1) + 'A'));
+	    }
+		
 	}
 }
 
@@ -31,8 +52,7 @@ int main() {
 	string s;
 	cin >> s;
 	
-	call(s , "");
+	recursiveCall(s,"");
 	
 	return 0;
-
 }
