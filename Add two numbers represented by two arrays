@@ -13,13 +13,17 @@ Elements are: 1,2,3
 Output: 7,2,3,4,5,3,1,2,8,5,1
 
 
-   string res;
+   
+// time complexity : O(n+m)
+// space complexity : O(1)
+class Solution{
+    public:
+    string calc_Sum(int *A,int N,int *B,int M){
+    
+      string res;
         
-        int carry = 0;
-        
-        int i = N - 1;
-        int j = M - 1;
-        
+        int carry = 0, i = N - 1,j = M - 1;
+        // O(n+m)
         while(i >= 0 and j >= 0)
         {
             int sum = A[i] + B[j] + carry;
@@ -31,37 +35,35 @@ Output: 7,2,3,4,5,3,1,2,8,5,1
             j--;
         }
         
+        //O(n)
         while(i >= 0)
         {
-            int sum = A[i] + carry;
+            int sum = A[i--] + carry;
             
             res += (sum % 10) + '0';
             carry = sum / 10;
-            
-            i--;
         }
         
+        //O(m)
         while(j >= 0)
         {
-            int sum = B[j] + carry;
+            int sum = B[j--] + carry;
             
             res += (sum % 10) + '0';
             carry = sum / 10;
-            
-            j--;
         }
         
         if(carry)
-        {
             res += carry + '0';
-        }
         
+        // reverse the string to get result
         reverse(res.begin(), res.end());
         
         int curr = 0;
+        // skip the zeros at the front
         while(curr < res.size() and res[curr] == '0')
-        {
             curr++;
-        }
-        
+        //return after zeros
         return res.substr(curr);
+    }
+};
