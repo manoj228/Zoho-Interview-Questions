@@ -1,4 +1,4 @@
-    A -> 1
+1)  A -> 1
     B -> 2
     C -> 3
     ...
@@ -23,3 +23,45 @@ int main() {
 	
 	return 0;
 }
+
+
+2) 
+Example 1:
+
+Input: columnNumber = 1
+Output: "A"
+Example 2:
+
+Input: columnNumber = 28
+Output: "AB"
+Example 3:
+
+Input: columnNumber = 701
+Output: "ZY"
+
+class Solution {
+public:
+    string convertToTitle(int n) {
+        
+//return n == 0 ? "" : convertToTitle((n - 1) / 26) + (char) ((n - 1) % 26 + 'A');
+        
+        string res;
+
+    char tmp;
+
+    while(n){
+
+        n -= 1;
+
+        tmp = 'A' + n % 26;
+
+        res = tmp + res;
+
+        n /= 26;
+
+    }
+
+    return res;
+
+    }
+};
