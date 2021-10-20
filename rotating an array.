@@ -12,12 +12,6 @@ Printing Right Rotation without swapping :
 Reversal Algorithm output for Right Rotation :
 6 7 1 2 3 4 5 
 
-Compilation error #stdin compilation error #stdout 0s 4164KB
-prog.cpp: In function ‘void leftRotate(std::vector<int>, int, int)’:
-prog.cpp:44:11: error: ‘arr’ was not declared in this scope
-   int t = arr[i];
-           ^~~
-
 Success #stdin #stdout 0s 4164KB
 Printing Left Rotation without swapping :
 3 4 5 6 7 1 2 
