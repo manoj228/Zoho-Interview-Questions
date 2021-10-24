@@ -38,31 +38,33 @@ int main() {
 
 Solution 2 :
 Time complexity : O(nlogn)
-space complexity: O(1)
+space complexity: O(n)
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-   vector<int> a{ 13,2,4,15,12,10,5};
+    vector<int> a{13,2,4,15,12,10,5};
     
     int n = a.size();
     
-    sort(a.begin(), a.end());
+    vector<int> even, odd;
     
-    int i = 0 , j = n-1;
-    while(i < j)
+    for(int i=0; i<n; i++)
     {
-    	if(a[i] < a[j]) 
-    	swap(a[i++], a[j]);
-    	
-    	if(a[i] > a[j])
-    	swap(a[i++],a[j--]);
+    	if(i & 1) odd.push_back(a[i]);
+    	else even.push_back(a[i]);
     }
     
-    for(int i=0; i<n; i++) cout << a[i] << " "; cout << endl;
+    sort(even.begin(), even.end(), greater<int>());
+    sort(odd.begin(), odd.end());
     
-		
+    int i = 0, j = 0;
+    for(int k=0; k<n; k++)
+    {
+    	if(k & 1) cout << odd[j++] << " ";
+    	else cout << even[i++] << " ";
+    }
+    
+	
 	return 0;
 }
-
- 
