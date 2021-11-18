@@ -8,6 +8,82 @@ And print the start and ending index as
 Start index : <1,2>
 End index: <3, 2>
 
+1) Recursive solution in C
+#include <stdio.h>
+
+int isFound(int row, int col, char arr[][col], int i, int j, char str[], int k, int len, int sx, int sy)
+{
+	if(k == len)
+	{
+		printf("Start Index : %d %d \nEnd Index : %d %d", sx, sy, i, j-1);
+		return 1;
+	}
+	
+	if(i >= row || j >= col || (arr[i][j] != str[k] && arr[i][j] != str[k] - 32)) return 0;
+	
+	if(arr[i][j] == str[k] || arr[i][j] == str[k] - 32)
+	{
+		return isFound(row, col, arr, i, j+1, str, k+1, len, sx, sy) || 
+		       isFound(row, col, arr, i+1, j, str, k+1, len, sx, sy);
+	}
+	
+	return 1;
+}
+
+int main() {
+	
+	char str[] = "WELCOMETOZOHOCORPORATION";
+	int n = sizeof(str);
+	
+	char arr[5][5] = {{""}};
+	
+	// loop runs upto end of string
+	for(int i = 0, k = 0; k < n; i++)
+	{
+		// each row should have 5 values
+		for(int j = 0; j < 5 && k < n; j++,k++)
+		{
+			arr[i][j] = str[k];
+		}
+	}
+	
+	int row = sizeof(arr)/sizeof(arr[0]);
+	int col = (sizeof(arr)/sizeof(arr[0][0]))/ row;
+	
+	
+	for(int i = 0; i < row; i++)
+	{
+		for(int j = 0; j < col; j++)
+		{
+			printf("%c ", arr[i][j]);
+		}
+		printf("\n");
+	}
+	
+	char search[] = "too";
+	
+	int len = strlen(search);
+	
+	// left to right
+	for(int i = 0; i < row; i++)
+	{
+		for(int j = 0; j < col; j++)
+		{
+			if(arr[i][j] == search[0] || arr[i][j] == search[0] - 32)
+			{
+				if(isFound(row, col, arr, i, j, search, 0, len, i, j))
+				{
+					return 0;
+				}
+			}
+		}
+	}
+	
+	return 0;
+}
+
+
+2) C++ solution 
 #include <bits/stdc++.h>
 using namespace std;
 
