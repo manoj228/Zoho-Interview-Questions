@@ -2,6 +2,8 @@
  Output : {7, 1, 6, 2, 5, 3, 4} 
 
 
+1) Using sorting method :
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -143,6 +145,57 @@ int main() {
 		cout << a[j--] << " " << a[i++] << " ";
 
 	if(n & 1) cout << a[i] ;
+	
+	return 0;
+}
+
+2) Without sorting
+
+#include <stdio.h>
+
+void swap(int *a, int *b)
+{
+	int t = *a;
+	*a = *b;
+	*b = t;
+}
+
+void alternateSort(int arr[], int n)
+{
+	/* Selection sort is used because the 1st element would be fixed after one iteration of outer loop*/ 
+	for(int i = 0; i < n; i++)
+	{
+		for(int j = i + 1; j <  n; j++)
+		{
+			// if i value is odd then smallest value in remaining index values is goes to ith index
+			if(i & 1)
+			{
+				if(arr[i] > arr[j])
+				swap(&arr[i], &arr[j]);
+				
+			}
+			 //  if i value is even then largest value in remaining index values is goes to ith index
+			else 
+			{
+				if(arr[i] < arr[j])
+				swap(&arr[i], &arr[j]);
+				
+			}
+		}
+		
+	}
+}
+
+int main(void) {
+	
+	int arr[] = {1, 2, 5, 4, 3, 6, 7};
+	int n = sizeof(arr) / sizeof(arr[0]);
+
+	alternateSort(arr, n);
+	
+	for(int i = 0; i < n; i++)
+	printf("%d ", arr[i]);
+	    
 	
 	return 0;
 }
