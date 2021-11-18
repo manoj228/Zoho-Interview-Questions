@@ -93,24 +93,33 @@ void quickSort(vector<int>& a,int l,int r)
 
 void alternateSorting(vector<int> &a)
 {
-   vector<int> a{ 1,2,3,4,5,6,7,8,9};
-    
-    int n = a.size();
+    int n = arr.size();
     
     sort(a.begin(), a.end());
     
-    int i = 0 , j = n-1;
-    while(i < j)
-    {
-    	if(a[i] < a[j]) 
-    	swap(a[i++], a[j]);
-    	
-    	if(a[i] > a[j])
-    	swap(a[i++],a[j--]);
-    }
-    
-    for(int i=0; i<n; i++) cout << a[i] << " "; cout << endl;
-   
+    	int minIdx = 0, maxIdx = n-1, maxElement = arr[n-1] + 1;
+	
+	for(int i = 0; i < n;  i++)
+	{
+		if(i % 2 == 0)
+		{
+			arr[i] = arr[i] + arr[maxIdx] % maxElement * maxElement ;
+			maxIdx--;
+		}
+		
+		else{
+			arr[i] = arr[i] + arr[minIdx] % maxElement * maxElement;
+			minIdx++;
+		}
+	}
+	
+	cout << "Alternate sorting" ;
+	for(int i = 0; i < n; i++)
+	printf("%d ", arr[i]/maxElement);
+	
+	cout << "\nOriginal Array" ;
+	for(int i = 0; i < n; i++)
+	printf("%d ", arr[i]%maxElement);
 }
 
 int main() {
