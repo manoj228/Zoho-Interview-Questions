@@ -5,6 +5,7 @@ I/p and O/p :
  <”shaw”, “rooney”>
 Where the first string is “child”, second string is “Father”. And given “ronaldo” we hav
 
+1) C++ solution 
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -46,5 +47,69 @@ int main() {
     	cout << inputFather<< " has "<<count(a,child,n) << " grandchildren";
     }
 	 
+	return 0;
+}
+
+
+2) C solution :
+
+#include <stdio.h>
+
+struct family
+{
+	char child[20];
+	char father[20];
+};
+
+int countChildren(struct family obj[], char search[], int n)
+{
+	int count = 0;
+	
+	for(int i = 0; i < n; i++)
+	{
+		if(strcmp(obj[i].father, search) == 0)
+		{
+			count++;
+		}
+	}
+	
+	return count;
+}
+
+int main(void) {
+	
+	int n;
+	scanf("%d", &n);
+	
+	struct family obj[n];
+	for(int i = 0; i < n; i++)
+	{
+		scanf("%s", obj[i].child);
+		scanf("%s", obj[i].father);
+	}
+	
+	for(int i = 0; i < n; i++)
+	{
+		printf("Child : %s, ", obj[i].child);
+		printf("Father : %s\n", obj[i].father);
+	}
+	
+	char search[20];
+	scanf("%s", search);
+	
+	printf("Search Word : %s\n", search);
+	
+	int count = 0;
+	for(int i = 0; i < n; i++)
+	{
+		if(strcmp(obj[i].father, search) == 0)
+		{
+			count = countChildren(obj, obj[i].child, n);
+		}
+	}
+	
+	printf("\nNumber of Grand Children : %d", count);
+	
+
 	return 0;
 }
