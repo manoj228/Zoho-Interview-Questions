@@ -1,0 +1,51 @@
+Input : PROGRAM
+output : 
+P      M 
+ R    A  
+  O  R   
+   G    
+  O  R   
+ R    A  
+P      M 
+
+
+
+
+// Time complexity : O(n*n)
+// Space complexity : O(1)
+#include <iostream>
+using namespace std;
+
+int main() {
+	
+	string str = "PROGRAM";
+	
+	/*
+	  00 01 02 03 04 05 06        
+	  10 11 12 13 14 15 16
+	*/
+	
+	for(int i = 0, k = str.size()-1; i < str.size(), k >= 0; i++, k--)
+	{
+		for(int j = 0; j < str.size(); j++)
+		{
+			if(i == j)
+			{
+				cout << str[i] << " ";
+			}
+			
+			else if((i+j) == str.size()-1)
+			{
+				cout << str[k] << " ";
+			}
+			else
+			{
+				cout << " ";
+			}
+		}
+		cout << endl;
+	}
+	
+	
+	return 0;
+}
