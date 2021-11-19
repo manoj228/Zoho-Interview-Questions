@@ -3,6 +3,8 @@
  Input : (((ab)
  Output : (ab) 
 
+1) Brute force solution
+
 // remove invalid paranthesis
 /* C/C++ program to remove invalid parenthesis */
 #include <bits/stdc++.h>
@@ -89,5 +91,66 @@ int main()
 	expression = "()v)";
 	removeInvalidParenthesis(expression);
 
+	return 0;
+}
+
+
+2) Optimized approach
+
+// Time complexity : O(n)
+// Space complexity : O(1)
+#include <iostream>
+using namespace std;
+
+void deleteBrackets(string &str, char ch, int totalCount)
+{
+	int count = 0;
+	string curStr = "";
+	
+	for(auto val : str)
+	{
+		// if val is equal to ch, increase the count
+		if(val == ch)
+		count++;
+		
+		// if count <= limit or cur val is not equal to ch, then add it to result
+		if(count <= totalCount || val != ch)
+		{
+			curStr += val;
+		}
+		
+	}
+	
+	str = curStr;
+}
+
+int main()
+{
+	string str;
+	cin >> str;
+	
+	// count total number of '(' and ')' 
+	int openBracketCount = 0, closeBracketCount = 0;
+	
+	for(auto ch : str)
+	{
+		if(ch == '(') 
+		openBracketCount++;
+		
+		else if(ch == ')')
+		closeBracketCount++;
+	}
+	
+	// if anyone is larger, then we need to remove the largest one
+	if(openBracketCount > closeBracketCount)
+	{
+		deleteBrackets(str, '(', closeBracketCount);
+	}
+	else if(openBracketCount < closeBracketCount){
+		deleteBrackets(str, ')', openBracketCount);
+	}
+	
+	cout << str << endl;
+	
 	return 0;
 }
