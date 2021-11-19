@@ -1,0 +1,34 @@
+Eg 1: Input: a1b10
+ Output: abbbbbbbbbb
+Eg: 2: Input: b3c6d15
+ Output: bbbccccccddddddddddddddd
+
+
+// Time complexity : O(n)
+// Space complexity : O(1)
+#include <iostream>
+using namespace std;
+
+class Pattern
+{
+	public :
+	void printPattern()
+	{
+	    int count;
+	    char var;
+		while(cin >> var >> count)
+		{
+			while(count--) cout << var ;
+		}
+	}
+};
+
+
+
+int main()
+{	
+	Pattern obj;
+	obj.printPattern();
+	
+	return 0;
+}
