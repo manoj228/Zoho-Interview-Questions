@@ -23,6 +23,8 @@ X 0 0 0 0 X
 X X X X X X
 
 
+1) using vector:
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -74,4 +76,67 @@ int main() {
 	}
 	
 	return 0;
+}
+
+
+2) Using char array
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int n, m;
+	cin >> n >> m;
+	
+	int k = 0, l = 0, row = n, col = m;
+	char ch = 'X';
+	char arr[n][m] ;
+	
+	
+	while(k < n && l < m)
+	{
+		// first row
+		for(int i = l; i<m; i++)
+		arr[k][i] = ch;
+		
+		k++;
+		
+		// last col
+		for(int i=k; i<n; i++)
+		arr[i][m-1] = ch;
+		
+		m--;
+		
+		//last row
+		if(k < n)
+		{
+			for(int i=m-1; i>=l; i--)
+			arr[n-1][i] = ch;
+			
+			n--;
+		}
+		
+		//first col
+		if(l < m)
+		{
+			for(int i=n-1; i>=k; i--)
+			arr[i][l] = ch;
+			
+			l++;
+		}
+		
+		
+		(ch == 'X') ? ch = '0' : ch = 'X';
+ 	}
+ 	
+ 	
+ 	for(int i = 0; i < row; i++)
+ 	{
+ 		for(int j = 0; j < col; j++)
+ 		{
+ 			cout << arr[i][j] << " ";
+		}
+		cout << endl;
+	}
 }
