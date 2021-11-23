@@ -1,0 +1,65 @@
+Input : 
+row : 3  col : 3
+
+O/p:
+1 2 3
+8 9 4
+7 6 5
+
+1) Starts from 0,0
+
+// Time complexity : O(row*col)
+// Space complexity : O(row*col)
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int row, col;
+	cin >> row >> col;
+	
+	int rowStart = 0, rowEnd = row, colStart = 0, colEnd = col, val = 1;
+	int arr[row][col];
+	
+	while(rowStart < rowEnd && colStart < colEnd)
+	{
+		//first row
+		for(int i = colStart; i < colEnd; i++)
+		arr[rowStart][i] = val++;
+		
+		rowStart++;
+		
+		//last col
+		for(int i = rowStart; i < rowEnd; i++)
+		arr[i][colEnd-1] = val++;
+		
+		colEnd--;
+		
+		// last row
+		if(rowStart < rowEnd)
+		{
+			for(int i = colEnd - 1; i >= colStart; i--)
+			arr[rowEnd-1][i] = val++;
+			
+			rowEnd--;
+		}
+		
+		// first col
+		if(colStart < colEnd)
+		{
+			for(int i = rowEnd - 1; i>= rowStart; i--)
+			arr[i][colStart] = val++;
+			
+			colStart++;
+		}
+	}
+	
+	for(int i = 0; i < row; i++)
+	{
+		for(int j = 0; j < col; j++)
+		{
+			cout << arr[i][j] << " ";
+		}cout << endl;
+	}
+}
